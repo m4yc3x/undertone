@@ -126,8 +126,8 @@ async fn handle_connection(
     client_id: String,
     connections: Arc<Mutex<HashMap<String, mpsc::Sender<String>>>>,
     mut rx: mpsc::Receiver<String>,
-    log_enabled: bool, // Add this parameter
-    debug_enabled: bool, // And this parameter
+    log_enabled: bool,
+    debug_enabled: bool, 
 ) {
     let mut registered_id: Option<String> = None;
 
@@ -193,7 +193,6 @@ async fn handle_connection(
                                 }
                             },
                             _ => {
-                                println!("nigga");
                                 if let Some(to) = &parsed_msg.to {
                                     if let Some(tx) = connections.lock().await.get(to) {
                                         let _ = tx.send(msg_text).await;
@@ -242,12 +241,10 @@ async fn handle_connection(
 
 fn log(message: &str) {
     let timestamp = Local::now();
-    // Example: Print the timestamp in yellow and the message in green
     println!("[{}] {}", timestamp.format("%Y-%m-%d %H:%M:%S").to_string().yellow(), message.cyan());
 }
 
 fn err(message: &str) {
     let timestamp = Local::now();
-    // Example: Print the timestamp in yellow and the message in green
     println!("[{}] [{}] {}", timestamp.format("%Y-%m-%d %H:%M:%S").to_string().yellow(), "ERROR".to_string().red(), message.cyan());
 }

@@ -125,7 +125,7 @@ async fn create_offer(
     };
     let offer_message_str = serde_json::to_string(&offer_message).unwrap();
     ws_stream.lock().await.send(Message::Text(offer_message_str)).await?;
-    println!("hello");
+    // NOT GETTING PAST THIS SEND
 
     // Handle ICE candidates
     peer_connection
